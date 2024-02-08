@@ -109,7 +109,7 @@ console.log("Random numbers with sum 100:", numbers);
            "text":url
         }],
         headers:{
-          "X-RapidAPI-Key":"a6bac18a22msh98e2d246901deb6p15852cjsn9b014a993d93",
+          "X-RapidAPI-Key":"f98a7dcf75mshbec3fc4926c0197p1dad9cjsnbf95294b90fa",
         "X-RapidAPI-Host":"big-five-personality-insights.p.rapidapi.com",
         }
         
@@ -248,8 +248,8 @@ console.log("Random numbers with sum 100:", numbers);
     </div>
         </div>
         <div className='flex flex-col lg:flex-row mx-[10%]  mt-[3%] '>
-          <div className='flex w-full'><div className='flex justify-center lg:mx-[3%]  text-blue-400 font-bold text-md lg:text-xl'>Enter text  :</div>
-            <div><TextField variant='outlined' aria-label='url' size='small' className='!w-full lg:!w-[700px]' onChange={(e)=>seturl(e.target.value)}/></div>
+          <div className='flex w-full'><div className='flex justify-center lg:mx-[3%]  text-blue-400 font-bold text-md lg:text-xl'>Enter <span className='ml-[0.5rem]'>text </span><span>:</span></div>
+            <div className='w-full'><TextField variant='outlined' aria-label='url' size='small' className='!w-full lg:!w-[100%]' onChange={(e)=>seturl(e.target.value)}/></div>
           </div> <div className='mx-0 lg:mx-5 flex justify-center mt-[5%] lg:mt-0'><Button variant='contained' className={`${buttonOpen?'!bg-yellow-400':' !bg-blue-600'}`}onClick={GraphData}>{buttonOpen?"Analyzing...":"Analyze"}</Button></div> 
             </div>
             <div className='flex mx-[15%] mt-[2%]'>
