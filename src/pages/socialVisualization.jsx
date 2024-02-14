@@ -112,7 +112,6 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
       const twitterData=async()=>{
         setopen(true);
         setButtonOpen(true);
-    
 
         try{
         const res= await profileinstance({
@@ -150,7 +149,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "User Not Found!"
+            text: "User Not Available!"
           
           });
           setButtonOpen(false);
