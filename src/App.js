@@ -3,6 +3,8 @@ import Visualization from './pages/visualization';
 import Newgraph from './component/Newgraph';
 import PieChart from './component/Latestgraph';
 import StackedBarChart from './component/barChart/StackedBarChart';
+import SocialVisualization from './pages/socialVisualization';
+
 //  import Graph1 from './component/Graph1';
 
 
@@ -25,11 +27,10 @@ function App() {
     
      <BrowserRouter>
     <Routes>
-      <Route path='/' element={<Visualization/>}/>
-      <Route path='/newgraph' element={<Newgraph/>}/>
-      <Route path='/latest' element={<PieChart/>}/>
-      <Route path='/barChart' element={<StackedBarChart/>}/>
+      {/* <Route path='/' element={<Visualization/>}/> */}
       
+      <Route path='/' element={<SocialVisualization/>}/>
+      {/* <Route path='/example' element={<Example/>}/> */}
       
      {/* <Route path='/graph1' element={<Graph1/>}/> */}
     </Routes> 

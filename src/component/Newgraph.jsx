@@ -151,10 +151,10 @@ for (i = 0; i < dataLen; i += 1) {
     versionsData.push({
       name: data[i].drilldown.categories[j],
       y: data[i].drilldown.data[j],
-      color: data[i].color
-    //   custom: {
-    //     version: name.split(' ')[1] || name.split(' ')[0]
-    // }
+      color: data[i].color,
+    //  custom: {
+    //  version: data[i].drilldown.categories[j].split(' ')[1] || data[i].drilldown.categories[j].split(' ')[0]
+    //  }
     });
   }
 }

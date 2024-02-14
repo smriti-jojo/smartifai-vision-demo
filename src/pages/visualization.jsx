@@ -10,6 +10,7 @@ import Graph from '../component/Graph';
 import Newgraph from '../component/Newgraph';
 import Highcharts from "highcharts/highstock";
 import PieChart from '../component/Latestgraph';
+import profileinstance from '../profileInstance';
 
 
 const Visualization = () => {
@@ -17,11 +18,55 @@ const Visualization = () => {
   const [open,setopen]=useState(false);
   const [url,seturl]=useState("");
   const [buttonOpen,setButtonOpen]=useState(false);
+  const [CategoryData,setCategoryData]=useState([]);
+  const [number1,setnumber1]=useState([]);
+  const[userName,setuserName]=useState("");
 
   const colors = Highcharts.getOptions().colors;
   useEffect(()=>{
-    generateNumbersWithSum(targetSum, count);
+     generateNumbersWithSum(targetSum, count);
+     
+    // formatData();
    },[])
+
+// const formatData=()=>{
+//   let Totalsum=0;
+//   // datasets.map((item)=>
+//   // {
+//   //   console.log("ITEM-Data",item.y)
+  
+//   // }
+//   // )
+//   for(let i=0;i<CategoryData.length;i++){
+//     Totalsum =Totalsum+CategoryData[i];
+//   }
+// for(let i=0;i<CategoryData.length;i++){
+//   let array=[];
+// console.log("TotalSum",Totalsum);
+// let value=CategoryData[i]/Totalsum;
+// array.push(CategoryData[i]/Totalsum);
+//   setnumber1(array);
+// }
+// console.log("------------number1----------",number1);
+// }
+
+
+
+  //  formatData() {
+  //   // Calculate the total sum of scores
+  //   const totalSum = this.topFiveCategories.reduce(
+  //     (acc = 0, curr) => acc + curr.score,
+  //     0
+  //   );
+
+  //   // Calculate the percentage for each label
+  //   const labeledPercentages = this.topFiveCategories.map((labelScore) => [
+    
+  //     (labelScore.score / totalSum) * 100,
+  //   ]);
+
+  //   this.pieData = labeledPercentages;
+  // }
   function generateRandomNumbersWithSum(total, count) {
     let numbers = [];
     
@@ -57,9 +102,47 @@ function generateNumbersWithSum(targetSum, count) {
 const targetSum = 100;
 const count = 5;
 const numbers = generateNumbersWithSum(targetSum, count);
-console.log("Random numbers with sum 100:", numbers);
+// console.log("Random numbers with sum 100:", numbers);
 
+// const AnalyzeProfile=async()=>{
+//   const res= await profileinstance({
+//     url:`get_tweets?username=sachinrrjain&number=2`,
+//     method:"GET",
+//     headers:{
+//       "Access-Control-Allow-Origin":"*",
+//       "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept"
+//     }
+//      })
+//      console.log("AnalyzeProfile----",res);
+// }
 
+// const fetchPromise = fetch("https://third-tender-bass.glitch.me/get_tweets?username=sachinrrjain&number=10", {
+//   method: "POST",
+//   mode: "cors",
+//   headers: {
+//     "Content-Type": "text/xml",
+//     "X-PINGOTHER": "pingpong",
+//   },
+//   body: "<person><name>sachinrrjain</name></person>",
+// });
+
+// fetchPromise.then((response) => {
+//   console.log("twitter-------------",response.status);
+// });
+// const fetchPromise = fetch("https://third-tender-bass.glitch.me/get_tweets?username=sachinrrjain&number=10");
+
+// const fetch=()=>{
+//   fetchPromise
+//   .then((response) => response.json())
+//   .then((data) => {
+//     console.log("-----fetchdata-------",data);
+//   });
+// }
+// fetchPromise
+//   .then((response) => response.json())
+//   .then((data) => {
+//     console.log("-----fetchdata-------",data);
+//   });
   // const CreateProfile=async()=>{
   //   setopen(true);
   //   setButtonOpen(true);
@@ -91,6 +174,16 @@ console.log("Random numbers with sum 100:", numbers);
   //   GraphData();
   // }
   // }
+const handleInput=()=>{
+  console.log("--url----",url);
+  console.log("--urlsplit----",url.split('/')[3]);
+  let twitterName=url.split('/')[3];
+  setuserName(twitterName);
+const twitterRegex=/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/;
+console.log("twitterRegex",twitterRegex.test(url));
+{twitterRegex.test(url)?console.log("Hii"):GraphData()}
+}
+
 
   
   const GraphData=async()=>{
@@ -104,7 +197,7 @@ console.log("Random numbers with sum 100:", numbers);
         url:`big5`,
         method:'POST',
         data:[{
-          "id": "https://www.linkedin.com/in/sudeepgupta1",
+          "id": "",
           "language": "en",
            "text":url
         }],
@@ -116,6 +209,7 @@ console.log("Random numbers with sum 100:", numbers);
     })
      console.log("GraphData",res.data[0]);
      console.log("GraphDataLength",Object.keys(res.data[0]).length);
+     setCategoryData([res.data[0].openness,res.data[0].conscientiousness,res.data[0].extraversion,res.data[0].agreeableness,res.data[0].neuroticism]);
      const data=res.data;
     //  let newOpennessOutputData={};
      let newOpennessData={};
@@ -160,6 +254,7 @@ console.log("Random numbers with sum 100:", numbers);
           // newConscientiousnessData[SubConscientiousness[j]]=res.data[0][SubConscientiousness[j]];
           ConscientiousnessData.push(Math.round(res.data[0][SubConscientiousness[j]]*100));
         }
+        console.log(" ConscientiousnessData---------------------", ConscientiousnessData);
         newConscientiousnessOutputData={y:numbers[1],name:'conscientiousness',category:SubConscientiousness,data:ConscientiousnessData,color:'#D24545'}
          Data.push(newConscientiousnessOutputData);
       }
@@ -250,7 +345,7 @@ console.log("Random numbers with sum 100:", numbers);
         <div className='flex flex-col lg:flex-row mx-[10%]  mt-[3%] '>
           <div className='flex w-full'><div className='flex justify-center lg:mx-[3%]  text-blue-400 font-bold text-md lg:text-xl'>Enter <span className='ml-[0.5rem]'>text </span><span>:</span></div>
             <div className='w-full'><TextField variant='outlined' aria-label='url' size='small' className='!w-full lg:!w-[100%]' onChange={(e)=>seturl(e.target.value)}/></div>
-          </div> <div className='mx-0 lg:mx-5 flex justify-center mt-[5%] lg:mt-0'><Button variant='contained' className={`${buttonOpen?'!bg-yellow-400':' !bg-blue-600'}`}onClick={GraphData}>{buttonOpen?"Analyzing...":"Analyze"}</Button></div> 
+          </div> <div className='mx-0 lg:mx-5 flex justify-center mt-[5%] lg:mt-0'><Button variant='contained' className={`${buttonOpen?'!bg-yellow-400':' !bg-blue-600'}`}onClick={handleInput}>{buttonOpen?"Analyzing...":"Analyze"}</Button></div> 
             </div>
             <div className='flex mx-[15%] mt-[2%]'>
               {/* <div className='w-[150vh]'>
