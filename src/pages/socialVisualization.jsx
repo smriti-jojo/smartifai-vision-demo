@@ -340,27 +340,51 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     }
     else if(updates.length===0 && about.length<10){
     //  alert("Sufficient data not available");
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Sufficient data not available!"
+    setdatasets([]);
+    setTimeout(()=>{
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Sufficient data not available!"
+      
+      });
+       setlinkedinClick(false);
+       setopen(false);
+    },500)
+    // Swal.fire({
+    //   icon: "error",
+    //   title: "Oops...",
+    //   text: "Sufficient data not available!"
     
-    });
-     setlinkedinClick(false);
-     setopen(false);
+    // });
+    //  setlinkedinClick(false);
+    //  setopen(false);
     }
     else{
       // const Data=updates;
       if(updates[0].image==="undefinedundefined"){
         // alert("Sufficient data not available");
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Sufficient data not available!"
+        // Swal.fire({
+        //   icon: "error",
+        //   title: "Oops...",
+        //   text: "Sufficient data not available!"
         
-        });
-        setlinkedinClick(false);
-        setopen(false);
+        // });
+        // setlinkedinClick(false);
+        // setopen(false);
+        setdatasets([]);
+        setTimeout(()=>{
+          // setlinkedinClick(false);
+          // setopen(false);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Sufficient data not available!"
+          
+          });
+           setlinkedinClick(false);
+           setopen(false);
+        },500)
       }
       updates.map((item)=>{
     
@@ -403,12 +427,23 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     });
   }
     else{
-      Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Sufficient data not Available!"
+    //   Swal.fire({
+    //   icon: "error",
+    //   title: "Oops...",
+    //   text: "Sufficient data not Available!"
     
-    });
+    // });
+    setdatasets([]);
+    setTimeout(()=>{
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Sufficient data not available!"
+      
+      });
+      //  setlinkedinClick(false);
+      //  setopen(false);
+    },10000)
     }
     // Swal.fire({
     //   icon: "error",
