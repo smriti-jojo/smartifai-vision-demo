@@ -327,9 +327,10 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
         }
         
     })
-    console.log("-----linkedindata-------",res.data.data);
+    console.log("-----linkedindataEError-------");
     console.log("-----linkedindata-------",res.data.data.about);
-    const data=res.data.data;
+
+    const data=res.data;
 
     setData(data);
     const updates=res.data.data.updates ;
@@ -453,9 +454,10 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
         console.log("setlinkedinData---------------",linkData)
         GraphData(postData);
     },1000);
-  }catch(e){
+  }catch(error){
     // alert("user not found");
-    if(data.error==="Error fetching person profile, please try again later"){
+    console.log("error-------",error);
+    if(error.response.data.error==="Error fetching person profile, please try again later"){
        Swal.fire({
     icon: "error",
     title: "Oops...",
