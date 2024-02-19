@@ -331,8 +331,8 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     console.log("-----linkedindata-------",res.data.data.about);
     const data=res.data.data;
     setData(data);
-    const updates=res.data.data.data.updates ;
-    const about=res.data.data.data.about;
+    const updates=res.data.data.updates ;
+    const about=res.data.data.about;
     const postData=[];
     if(updates.length===0 && about.length>10 ){
       console.log("Updates not available----");
@@ -341,16 +341,15 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     else if(updates.length===0 && about.length<10){
     //  alert("Sufficient data not available");
     setdatasets([]);
-    setTimeout(()=>{
+    
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Sufficient data not available!"
-      
+        text: "Sufficient data not available!",
       });
-       setlinkedinClick(false);
-       setopen(false);
-    },500)
+      setlinkedinClick(false);
+      setopen(false);
+    
     // Swal.fire({
     //   icon: "error",
     //   title: "Oops...",
