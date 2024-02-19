@@ -330,9 +330,20 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     console.log("-----linkedindata-------",res.data.data);
     console.log("-----linkedindata-------",res.data.data.about);
     const data=res.data.data;
+
     setData(data);
     const updates=res.data.data.updates ;
     const about=res.data.data.about;
+    if(!about){
+      console.log("----about not found----");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Sufficient data not available!",
+      });
+      setlinkedinClick(false);
+      setopen(false);
+    }
     const postData=[];
      if(updates.length>0){
        updates.map((item)=>{
@@ -346,21 +357,35 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
         // postData.push(item.postText);
      });
      }
-    if(updates.length===0 && about.length>10 ){
+  
+    if(updates.length===0 && about.length !==0){
       console.log("Updates not available----");
       postData.push(about);
     }
-    else if(updates.length===0 && about.length<10){
+// if(!about){
+//   console.log("----about and updates length---")
+//     setdatasets([]);
     
-    setdatasets([]);
+//       Swal.fire({
+//         icon: "error",
+//         title: "Oops...",
+//         text: "Sufficient data not available!",
+//       });
+//       setlinkedinClick(false);
+//       setopen(false);
+// }
+  
+    // else if(updates.length===0 && about !=="undefined"){
+    // console.log("----about and updates length---")
+    // setdatasets([]);
     
-      // Swal.fire({
-      //   icon: "error",
-      //   title: "Oops...",
-      //   text: "Sufficient data not available!",
-      // });
-      setlinkedinClick(false);
-      setopen(false);
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Oops...",
+    //     text: "Sufficient data not available!",
+    //   });
+    //   setlinkedinClick(false);
+      // setopen(false);
     
     // Swal.fire({
     //   icon: "error",
@@ -369,8 +394,8 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     
     // });
     //  setlinkedinClick(false);
-    //  setopen(false);
-    }
+    //  seopen(false);
+    
     else{
       // const Data=updates;
       if(updates[0].image==="undefinedundefined"){
