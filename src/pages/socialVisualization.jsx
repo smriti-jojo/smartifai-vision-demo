@@ -10,11 +10,12 @@ import Loader from '../component/Loader/Loader';
 import Newgraph from '../component/Newgraph';
 import linkedinInstance from '../linkedinInstance';
 import Swal from 'sweetalert2';
-import { setDatasets } from 'react-chartjs-2/dist/utils';
+
 
 
 const SocialVisualization = () => {
     const[url,seturl]=useState("");
+    const[twitterUrl,settwitterUrl]=useState("");
     const [twitterUserName,settwitterUserName]=useState("");
     const[twitterdata,settwitterData]=useState([]);
     const [datasets,setdatasets]=useState([]);
@@ -35,6 +36,7 @@ const SocialVisualization = () => {
   const[data,setData]=useState("");
   const[twittererror,settwitterError]=useState(false);
   const[linkedinerror,setlinkedinError]=useState(false);
+  
   // const[linkedinButton,setlinkedinButton]=useState(false);
 
     // useEffect(()=>{
@@ -73,6 +75,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
    
         else{
           settwitterError(false);
+          settwitterUrl(value);
         let twitterName=value.split('/')[3];
         console.log("twitterName",twitterName);
         settwitterUserName(twitterName);
@@ -464,7 +467,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     title: "Oops...",
     text: "User Not Found!"
     });
-    setDatasets([]);
+    setdatasets([]);
   }
     else{
     //   Swal.fire({
@@ -530,10 +533,12 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
    const handleUrlInput=(value)=>{
       console.log("value",value);
       const linkedinRegex=/^https:\/\/[a-z]{2,3}\.linkedin\.com\/.*$/
+       
+      
       if(!linkedinRegex.test(value)){
         setlinkedinError(true);
       }
- 
+    
       else{
         setlinkedinError(false);
      
@@ -559,6 +564,20 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     });
    }
 
+   const twitterNotAvail=()=>{
+    Swal.fire({
+      icon: "error",
+      title: "Please Enter Twitter Url!!!",
+    });
+   }
+
+   const linkedinNotAvail=()=>{
+    Swal.fire({
+      icon: "error",
+      title: "Please Enter Linkedin Url!!!",
+    });
+   }
+
   return (
     <>
     <div className='max-h-screen'>
@@ -571,12 +590,12 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
         <div className='flex flex-col lg:flex-row mx-[5%]  mt-[3%] '>
           <div className='flex w-full'><div className='flex justify-center  text-blue-400 font-bold text-md lg:text-xl w-[30%]'>Enter <span className='mx-2'>Twitter  </span><span className=''> Profile:</span></div>
             <div className='w-full'><TextField variant='outlined' aria-label='url' size='small' className='!w-full lg:!w-[100%]'  onChange={(e)=>handleInput(e.target.value)} error={twittererror} helperText={twittererror?"Please enter twitter url":""}/></div>
-          </div> <div className='mx-0 lg:mx-5 flex justify-center mt-[5%] lg:mt-0'><Button variant='contained' className={`${buttonOpen?'!bg-yellow-400':' !bg-blue-600'} h-[2.5rem] w-[10rem]`}onClick={twittererror?TwitterErrorData:twitterData}>{buttonOpen?"Analyzing...":"Analyze"}</Button></div> 
+          </div> <div className='mx-0 lg:mx-5 flex justify-center mt-[5%] lg:mt-0'><Button variant='contained' className={`${buttonOpen?'!bg-yellow-400':  '!bg-blue-600'} h-[2.5rem] w-[10rem]`}onClick={twittererror?TwitterErrorData:twitterUrl.length===0?twitterNotAvail:twitterData}>{buttonOpen?"Analyzing...":"Analyze"}</Button></div> 
             </div>
             <div className='flex flex-col lg:flex-row mx-[5%]  mt-[3%] '>
           <div className='flex w-full'><div className='flex justify-center  text-blue-400 font-bold text-md lg:text-xl  w-[30%] '>Enter <span className='mx-2'>Linkedin</span> <span>Profile:</span></div>
-            <div className='w-full'><TextField variant='outlined' aria-label='url' size='small' className='!w-full lg:!w-[100%]' onChange={(e)=>handleUrlInput(e.target.value)} error={linkedinerror} helperText={linkedinerror?"Please enter linkedin url":""}/></div>
-          </div> <div className='mx-0 lg:mx-5 flex justify-center mt-[5%] lg:mt-0'><Button variant='contained' className={`${linkedinClick?'!bg-yellow-400':' !bg-blue-600'} h-[2.5rem] w-[10rem]`} onClick={linkedinerror?LinkedinErrorData:LinkedinData}>{linkedinClick?"Analyzing...":"Analyse"}</Button></div> 
+            <div className='w-full'><TextField variant='outlined' aria-label='url' size='small' className='!w-full lg:!w-[100%]' onChange={(e)=>handleUrlInput(e.target.value)} error={linkedinerror } helperText={linkedinerror?"Please enter linkedin url":""}/></div>
+          </div> <div className='mx-0 lg:mx-5 flex justify-center mt-[5%] lg:mt-0'><Button variant='contained' className={`${linkedinClick?'!bg-yellow-400':' !bg-blue-600'} h-[2.5rem] w-[10rem]`} onClick={linkedinerror?LinkedinErrorData:url.length===0?linkedinNotAvail:LinkedinData}>{linkedinClick?"Analyzing...":"Analyse"}</Button></div> 
             </div>
             {/* <Button variant='contained' size="small" className=''>Consolidate Personality</Button> */}
             <div className='flex mx-[5%] mt-[2%]'>
