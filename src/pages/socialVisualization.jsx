@@ -156,6 +156,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
             text: "User Not Available!"
           
           });
+          setdatasets([]);
           setButtonOpen(false);
           setopen(false);
           // if(twitterData.length>0 && linkData.length>0){
@@ -331,14 +332,16 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
         }
         
     })
-    console.log("-----linkedindataEError-------");
-    console.log("-----linkedindata-------",res.data.data.about);
+    console.log("-----linkedindataEError-------",res.data.data);
+    // console.log("-----linkedindata-------",res.data.data.about);
+    console.log("-----linkedindataEError11-------",res.data.data);
 
-    const data=res.data;
+    // const data=res.data.data;
 
-    setData(data);
+    // setData(data);
+    
     const updates=res.data.data.updates ;
-    const about=res.data.data.about;
+    const about=res.data.data?.about || '';
     if(!about){
       console.log("----about not found----");
       Swal.fire({
@@ -403,7 +406,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     
     else{
       // const Data=updates;
-      if(updates[0].image==="undefinedundefined"){
+      if(updates[0]?.image==="undefinedundefined"){
         // alert("Sufficient data not available");
         // Swal.fire({
         //   icon: "error",
@@ -476,6 +479,14 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     //   text: "Sufficient data not Available!"
     
     // });
+    // if(!about){
+    //     Swal.fire({
+    //   icon: "error",
+    //   title: "Oops...",
+    //   text: "Sufficient data not Available!"
+    
+    // });
+    // }
     setdatasets([]);
     setTimeout(()=>{
       // Swal.fire({
@@ -488,6 +499,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
       // //  setopen(false);
     },10000)
     }
+    
     // Swal.fire({
     //   icon: "error",
     //   title: "Oops...",
