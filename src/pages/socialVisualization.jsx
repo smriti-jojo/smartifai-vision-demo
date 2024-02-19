@@ -10,6 +10,7 @@ import Loader from '../component/Loader/Loader';
 import Newgraph from '../component/Newgraph';
 import linkedinInstance from '../linkedinInstance';
 import Swal from 'sweetalert2';
+import { setDatasets } from 'react-chartjs-2/dist/utils';
 
 
 const SocialVisualization = () => {
@@ -463,6 +464,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     title: "Oops...",
     text: "User Not Found!"
     });
+    setDatasets([]);
   }
     else{
     //   Swal.fire({
