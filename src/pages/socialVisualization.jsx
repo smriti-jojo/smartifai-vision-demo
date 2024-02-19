@@ -327,26 +327,38 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
         }
         
     })
-    console.log("-----linkedindata-------",res.data.data.error);
+    console.log("-----linkedindata-------",res.data.data);
     console.log("-----linkedindata-------",res.data.data.about);
     const data=res.data.data;
     setData(data);
     const updates=res.data.data.updates ;
     const about=res.data.data.about;
     const postData=[];
+     if(updates.length>0){
+       updates.map((item)=>{
+    
+        if(item.postText!==undefined){
+            postData.push(item.postText);
+        }
+        else{
+          postData.push(item.postLink);
+        }
+        // postData.push(item.postText);
+     });
+     }
     if(updates.length===0 && about.length>10 ){
       console.log("Updates not available----");
       postData.push(about);
     }
     else if(updates.length===0 && about.length<10){
-    //  alert("Sufficient data not available");
+    
     setdatasets([]);
     
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Sufficient data not available!",
-      });
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "Oops...",
+      //   text: "Sufficient data not available!",
+      // });
       setlinkedinClick(false);
       setopen(false);
     
@@ -375,26 +387,26 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
         setTimeout(()=>{
           // setlinkedinClick(false);
           // setopen(false);
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Sufficient data not available!"
+          // Swal.fire({
+          //   icon: "error",
+          //   title: "Oops...",
+          //   text: "Sufficient data not available!"
           
-          });
+          // });
            setlinkedinClick(false);
            setopen(false);
         },500)
       }
-      updates.map((item)=>{
+    //   updates.map((item)=>{
     
-        if(item.postText!==undefined){
-            postData.push(item.postText);
-        }
-        else{
-          postData.push(item.postLink);
-        }
-        // postData.push(item.postText);
-     });
+    //     if(item.postText!==undefined){
+    //         postData.push(item.postText);
+    //     }
+    //     else{
+    //       postData.push(item.postLink);
+    //     }
+    //     // postData.push(item.postText);
+    //  });
     }
 
     
@@ -434,14 +446,14 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     // });
     setdatasets([]);
     setTimeout(()=>{
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Sufficient data not available!"
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "Oops...",
+      //   text: "Sufficient data not available!"
       
-      });
-      //  setlinkedinClick(false);
-      //  setopen(false);
+      // });
+      // //  setlinkedinClick(false);
+      // //  setopen(false);
     },10000)
     }
     // Swal.fire({
