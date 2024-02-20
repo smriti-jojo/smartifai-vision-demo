@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import logo from "../assets/smartifai.png";
 import { useState } from 'react';
 import { TextField } from '@mui/material';
@@ -10,6 +10,7 @@ import Loader from '../component/Loader/Loader';
 import Newgraph from '../component/Newgraph';
 import linkedinInstance from '../linkedinInstance';
 import Swal from 'sweetalert2';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 
 
 
@@ -37,14 +38,15 @@ const SocialVisualization = () => {
   const[twittererror,settwitterError]=useState(false);
   const[linkedinerror,setlinkedinError]=useState(false);
   
+  
   // const[linkedinButton,setlinkedinButton]=useState(false);
 
-    // useEffect(()=>{
-    //     // // generateNumbersWithSum(targetSum, count);
-    //     // twitterData();
-    //    // formatData();
-    //    LinkedinData();
-    //   },[])
+//     useEffect(()=>{
+// console.log("----consolidate-color---")
+//        setConsolidateColor(true);
+
+//       },[twitterdata.length !==0 && linkData.length !==0])
+
 
   // useEffect(()=>{
   //    divideInputs(openness1, conscientiousness1, extraversion1, agreeableness,neuroticism)
@@ -156,6 +158,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
             text: "User Not Available!"
           
           });
+        
           setdatasets([]);
           setButtonOpen(false);
           setopen(false);
@@ -349,6 +352,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
         title: "Oops...",
         text: "Sufficient data not available!",
       });
+      setdatasets([]);
       setlinkedinClick(false);
       setopen(false);
     }
@@ -525,6 +529,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     const consolidateData=[];
     consolidateData.push(twitterdata);
     consolidateData.push(linkData);
+   
     console.log("consolidateData----------",consolidateData);
     console.log("consolidateDatatype----------",typeof(consolidateData));
     if(twitterdata.length===0 || linkData.length===0){
@@ -534,6 +539,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
         text: "Please Enter Twitter and Linkedin url!"
       
       });
+
     }
     else{
       setConsolidate(true);
@@ -593,6 +599,10 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     });
    }
 
+   const resetButton=()=>{
+    window.location.reload();
+   }
+
   return (
     <>
     <div className='max-h-screen'>
@@ -615,12 +625,14 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
             {/* <Button variant='contained' size="small" className=''>Consolidate Personality</Button> */}
             <div className='flex mx-[5%] mt-[2%]'>
               
-            <Button variant='contained' size="small"  onClick={ConsolidateData} className={`${consolidate?'!bg-yellow-400':' !bg-blue-600'} h-[2.5rem] w-[15rem]`}>{consolidate?"Analyzing...":"Consolidate Personality"}</Button>
+            <Button variant='contained' size="small"  onClick={ConsolidateData} className={`${consolidate?'!bg-yellow-400':twitterdata.length !==0 && linkData.length !==0?' !cursor-pointer':'!bg-slate-600 !cursor-default'} h-[2.5rem] w-[15rem]`}>{consolidate && twitterdata.length !==0 && linkData.length !==0?"Analyzing...":"Consolidate Personality"}</Button>
 <div className=''>
 
-{open?<div className='w-[120vh]'><Loader/></div>: <div className='w-[120vh]'>{datasets.length===0?<div className=''></div>:<Newgraph datasets={datasets} />}</div>}
+{open?<div className='w-[120vh]'><Loader/></div>: <div className='w-[120vh]'>{datasets.length===0?<div className=''></div>:<div className='flex justify-between'><Newgraph datasets={datasets} /> <Button variant='contained' size="small" className='!h-[35%]' onClick={resetButton}>Reset<RotateLeftIcon/></Button> </div> }</div>}
             </div>
-      </div>     
+            {/* <Button variant='contained' size="small">Reset</Button> */}
+      </div>   
+      {/* <Button variant='contained' size="small">Reset</Button>   */}
     </div>
     </>
   )
