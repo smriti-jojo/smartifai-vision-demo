@@ -359,9 +359,9 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
         if(item.postText!==undefined){
             postData.push(item.postText);
         }
-        else{
-          postData.push(item.postLink);
-        }
+        // else{
+        //   postData.push(item.postLink);
+        // }
         // postData.push(item.postText);
      });
      }
