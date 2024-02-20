@@ -459,7 +459,10 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     
     setTimeout(()=>{
         console.log("setlinkedinData---------------",linkData)
-        GraphData(postData);
+        if(postData.length !==0){
+          GraphData(postData);
+        }
+        // GraphData(postData);
     },1000);
   }catch(error){
     // alert("user not found");
