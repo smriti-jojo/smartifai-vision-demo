@@ -346,17 +346,17 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     
     const updates=res.data.data.updates ;
     const about=res.data.data?.about || '';
-    if(!about){
-      console.log("----about not found----");
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Sufficient data not available!",
-      });
-      setdatasets([]);
-      setlinkedinClick(false);
-      setopen(false);
-    }
+    // if(!about){
+    //   console.log("----about not found----");
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Oops...",
+    //     text: "Sufficient data not available!",
+    //   });
+    //   setdatasets([]);
+    //   setlinkedinClick(false);
+    //   setopen(false);
+    // }
     const postData=[];
      if(updates.length>1){
        updates.map((item)=>{
@@ -377,6 +377,17 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     if(updates.length===0 && about.length !==0 || updates.length===1 && about.length !==0){
       console.log("Updates not available----");
       postData.push(about);
+    }
+    if(!about && postData.length===0){
+      console.log("----about not found----");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Sufficient data not available!",
+      });
+      setdatasets([]);
+      setlinkedinClick(false);
+      setopen(false);
     }
 // if(!about){
 //   console.log("----about and updates length---")
