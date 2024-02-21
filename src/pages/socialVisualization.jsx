@@ -338,6 +338,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
     console.log("-----linkedindataEError-------",res.data.data);
     // console.log("-----linkedindata-------",res.data.data.about);
     console.log("-----linkedindataEError11-------",res.data.data);
+    console.log("-----linkedindataEErrorAbout-------",res.data.data.about);
 
     // const data=res.data.data;
 
@@ -357,7 +358,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
       setopen(false);
     }
     const postData=[];
-     if(updates.length>0){
+     if(updates.length>1){
        updates.map((item)=>{
     
         if(item.postText!==undefined){
@@ -370,7 +371,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
      });
      }
   
-    if(updates.length===0 && about.length !==0){
+    if(updates.length===0 && about.length !==0 || updates.length===1 && about.length !==0){
       console.log("Updates not available----");
       postData.push(about);
     }
