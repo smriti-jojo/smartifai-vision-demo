@@ -557,10 +557,12 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
    
    const handleUrlInput=(value)=>{
       console.log("value",value);
-      const linkedinRegex=/^https:\/\/[a-z]{2,3}\.linkedin\.com\/.*$/
+      // const linkedinRegex=/^https:\/\/[a-z]{2,3}\.linkedin\.com\/.*$/
+      // const linkedinRegex=/^http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/? /
+      const linkedinRegex1=/^(http(s)?:\/\/)?([\w]+\.)?linkedin\.com\/(pub|in|profile)\/([-a-zA-Z0-9]+)\/*/gm;
        
       
-      if(!linkedinRegex.test(value)){
+      if(!linkedinRegex1.test(value)){
         setlinkedinError(true);
       }
     
