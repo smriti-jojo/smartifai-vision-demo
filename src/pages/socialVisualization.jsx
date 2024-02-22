@@ -37,6 +37,7 @@ const SocialVisualization = () => {
   const[data,setData]=useState("");
   const[twittererror,settwitterError]=useState(false);
   const[linkedinerror,setlinkedinError]=useState(false);
+  const[linkUsername,setlinkUsername]=useState("");
   
   
   // const[linkedinButton,setlinkedinButton]=useState(false);
@@ -140,11 +141,29 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
         tweetdata.push(item.text);
         })
         console.log("tweetdata------",tweetdata);
-        divideInputs(openness1, conscientiousness1, extraversion1, agreeableness,neuroticism);
+        if(tweetdata.length===0){
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Sufficient Data Not Available!"
+          
+          });
+          setdatasets([]);
+          setButtonOpen(false);
+          setopen(false);
+        }
+        else{
+          divideInputs(openness1, conscientiousness1, extraversion1, agreeableness,neuroticism);
         settwitterData(tweetdata);
         setTimeout(()=>{
             GraphData(tweetdata);
         },500);
+        }
+        // divideInputs(openness1, conscientiousness1, extraversion1, agreeableness,neuroticism);
+        // settwitterData(tweetdata);
+        // setTimeout(()=>{
+        //     GraphData(tweetdata);
+        // },500);
       }catch(e){
         if(e){
           // alert("user not found");
@@ -313,6 +332,56 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
         setopen(false);
       
      }
+   }
+   const LinkedinData2=async()=>{
+    setlinkedinClick(true);
+    setopen(true);
+    const res= await linkedinInstance({
+      url:`get-profile-posts?username=${linkUsername}`,
+      method:'GET',
+
+      headers:{
+        "X-RapidAPI-Key":"a6bac18a22msh98e2d246901deb6p15852cjsn9b014a993d93",
+      "X-RapidAPI-Host":"linkedin-api8.p.rapidapi.com",
+      }
+      
+  })
+  console.log("Linkeddata-----",res.data.data);
+  let Data=res.data.data;
+  let postData=[];
+  if(Data.length !==0){
+    // Swal.fire({
+    //      icon: "error",
+    //   title: "Oops...",
+    //   text: "Sufficient data not available!",
+    //   });
+    Data.map((item)=>{
+      postData.push(item.text);
+    })
+    setlinkData(postData);
+    setTimeout(()=>{
+      console.log("setPostData---------------",postData);
+    
+        GraphData(postData);
+      
+      // GraphData(postData);
+  },1000);
+  }
+  else{
+  
+    Swal.fire({
+      icon: "error",
+   title: "Oops...",
+   text: "Sufficient data not available!",
+   });
+   setdatasets([]);
+   setopen(false);
+   setlinkedinClick(false);
+  //  if(postData.length !==0){
+  //   setdatasets([]);
+  //  }
+  }
+
    }
 
    const LinkedinData=async()=>{
@@ -568,6 +637,7 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
    
    const handleUrlInput=(value)=>{
       console.log("value",value);
+      console.log("--urlsplit----",value.split('/')[4]);
       // const linkedinRegex=/^https:\/\/[a-z]{2,3}\.linkedin\.com\/.*$/
       // const linkedinRegex=/^http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/? /
       const linkedinRegex1=/^(http(s)?:\/\/)?([\w]+\.)?linkedin\.com\/(pub|in|profile)\/([-a-zA-Z0-9]+)\/*/gm;
@@ -578,8 +648,9 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
       }
     
       else{
+        let linkName=value.split('/')[4];
         setlinkedinError(false);
-     
+        setlinkUsername(linkName);
       seturl(value);
       }
     
@@ -637,12 +708,12 @@ function divideInputs(openness1, conscientiousness1, extraversion1, agreeablenes
             <div className='flex flex-col lg:flex-row mx-[5%]  mt-[3%] '>
           <div className='flex w-full'><div className='flex justify-center  text-blue-400 font-bold text-md lg:text-xl  w-[30%] '>Enter <span className='mx-2'>Linkedin</span> <span>Profile:</span></div>
             <div className='w-full'><TextField variant='outlined' aria-label='url' size='small' className='!w-full lg:!w-[100%]' onChange={(e)=>handleUrlInput(e.target.value)} error={linkedinerror } helperText={linkedinerror?"Please enter linkedin url":""}/></div>
-          </div> <div className='mx-0 lg:mx-5 flex justify-center mt-[5%] lg:mt-0'><Button variant='contained' className={`${linkedinClick?'!bg-yellow-400':' !bg-blue-600'} h-[2.5rem] w-[10rem]`} onClick={linkedinerror?LinkedinErrorData:url.length===0?linkedinNotAvail:LinkedinData}>{linkedinClick?"Analyzing...":"Analyse"}</Button></div> 
+          </div> <div className='mx-0 lg:mx-5 flex justify-center mt-[5%] lg:mt-0'><Button variant='contained' className={`${linkedinClick?'!bg-yellow-400':' !bg-blue-600'} h-[2.5rem] w-[10rem]`} onClick={linkedinerror?LinkedinErrorData:url.length===0?linkedinNotAvail:LinkedinData2}>{linkedinClick?"Analyzing...":"Analyse"}</Button></div> 
             </div>
             {/* <Button variant='contained' size="small" className=''>Consolidate Personality</Button> */}
             <div className='flex mx-[5%] mt-[2%]'>
               
-            <Button variant='contained' size="small"  onClick={ConsolidateData} className={`${consolidate?'!bg-yellow-400':twitterdata.length !==0 && linkData.length !==0?' !cursor-pointer':'!bg-slate-600 !cursor-default'} h-[2.5rem] w-[15rem]`}>{consolidate && twitterdata.length !==0 && linkData.length !==0?"Analyzing...":"Consolidate Personality"}</Button>
+            <Button variant='contained' size="small"  onClick={ConsolidateData} className={`${consolidate?'!bg-yellow-400':twitterdata.length !==0 && linkData.length !==0?' !cursor-pointer':'!bg-slate-600 !cursor-default'} h-[2.5rem] w-[15rem]`} disabled={twitterdata.length ===0 || linkData.length===0?true:false}>{consolidate && twitterdata.length !==0 && linkData.length !==0?"Analyzing...":"Consolidate Personality"}</Button>
 <div className=''>
 
 {open?<div className='w-[120vh]'><Loader/></div>: <div className='w-[120vh]'>{datasets.length===0?<div className=''></div>:<div className='flex justify-between'><Newgraph datasets={datasets} /> <Button variant='contained' size="small" className='!h-[35%]' onClick={resetButton}>Reset<RotateLeftIcon/></Button> </div> }</div>}
