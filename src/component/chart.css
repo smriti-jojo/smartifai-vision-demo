@@ -1,0 +1,77 @@
+.range {
+  -webkit-appearance: none;
+  appearance: none; 
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.range::-webkit-slider-runnable-track {
+  height: 20px;
+  background: #ccc;
+  border-radius: 16px;
+}
+
+.range::-moz-range-track {
+  height: 20px;
+  background: #ccc;
+  border-radius: 16px;
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none; 
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid var(--color);
+  box-shadow: -407px 0 0 400px var(--color);
+}
+
+.range::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid var(--color);
+  box-shadow: -407px 0 0 400px var(--color);
+}
+
+.subcategory-header {
+  font-size: 1.5rem;
+  color: #000;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.subcategory {
+  width: 700px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.subcategory label {
+  text-transform: capitalize;
+}
+
+.input-controller {
+  display: flex;
+  gap: 15px;
+}
+
+.input-controller .input-label {
+  width: 160px;
+}
+
+.input-controller .input-control {
+  width: 327px;
+}
+
+.input-control .input-value {
+  width: 25px;
+}
