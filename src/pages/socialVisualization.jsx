@@ -33,12 +33,11 @@ const SocialVisualization = () => {
     const [linkedinerror, setlinkedinError] = useState(false);
     // const[linkedinButton,setlinkedinButton]=useState(false);
 
-    // useEffect(()=>{
-    //     // // generateNumbersWithSum(targetSum, count);
-    //     // twitterData();
-    //    // formatData();
-    //    LinkedinData();
-    //   },[])
+    //     useEffect(()=>{
+    // console.log("----consolidate-color---")
+    //        setConsolidateColor(true);
+
+    //       },[twitterdata.length !==0 && linkData.length !==0])
 
     // useEffect(()=>{
     //    divideInputs(openness1, conscientiousness1, extraversion1, agreeableness,neuroticism)
