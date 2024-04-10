@@ -775,7 +775,7 @@ const SocialVisualization = () => {
                                 }}
                                 className="w-full"
                             >
-                                {datasets.length !== 0 ? (
+                                {datasets.length === 0 ? (
                                     <div className=""></div>
                                 ) : (
                                     <Newgraph datasets={datasets} />
