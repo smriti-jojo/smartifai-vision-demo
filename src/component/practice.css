@@ -1,0 +1,53 @@
+.subcategory-header {
+    margin-bottom: 10px;
+  }
+  
+  .bar-chart {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .bar-label {
+    width: 200px; /* Adjust as needed */
+    margin-right: 10px;
+    text-transform: capitalize;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  
+  .bar-fill {
+    height: 20px; /* Adjust as needed */
+    background-color: #007bff; /* Default color */
+    position: relative;
+  }
+  
+  .bar-fill::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -5px; /* Adjust to match the position of the vertical line */
+    width: 5px; /* Adjust as needed */
+    height: 100%;
+    background-color: black; /* Vertical line color */
+  }
+  
+  .bar-value {
+    margin-left: 10px;
+  }
+  
+  /* Custom color for bar-fill */
+  .bar-fill {
+    background-color: var(--color, #007bff);
+  }
+  
+  /* Range input styles (optional) */
+  .range {
+    width: 200px; /* Adjust as needed */
+  }
+  

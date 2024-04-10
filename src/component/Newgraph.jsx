@@ -173,6 +173,10 @@ const Newgraph = (props) => {
                 allowPointSelect: true,
                 // size:'100%',
                 // height:'100%'
+                size: "60%",
+                innerSize: "20%",
+                
+                
             },
             series: {
                 point: {
@@ -186,6 +190,8 @@ const Newgraph = (props) => {
                     },
                 },
             },
+            size: '60%',
+            innerSize: '20%',
         },
         tooltip: {
             valueSuffix: "%",
