@@ -15,82 +15,82 @@ const Newgraph = (props) => {
     const [name, setName] = useState("");
     const [selected, setSelected] = useState({});
     console.log("PROPS---DATASETS", props.datasets);
-    // let Data = props.datasets;
+    let Data = props.datasets;
 
-    let Data = [
-        {
-            y: 11,
-            name: "openness",
-            category: [
-                "adventurous",
-                "artistic",
-                "emotionally_aware",
-                "imaginative",
-                "intellectual",
-                "authority_challenging",
-            ],
-            data: [1, 76, 73, 79, 82, 89],
-            color: "#FF9843",
-        },
-        {
-            y: 32,
-            name: "conscientiousness",
-            category: [
-                "achievement_striving",
-                "cautious",
-                "dutiful",
-                "disciplined",
-                "self_efficacy",
-            ],
-            data: [80, 100, 85, 87, 89],
-            color: "#D24545",
-        },
-        {
-            y: 7,
-            name: "extraversion",
-            category: [
-                "active",
-                "assertive",
-                "cheerful",
-                "excitement_seeking",
-                "outgoing",
-                "gregariousness",
-            ],
-            data: [89, 81, 24, 0, 74, 75],
-            color: "#86A7FC",
-        },
-        {
-            y: 18,
-            name: "agreeableness",
-            category: [
-                "altruism",
-                "modesty",
-                "uncompromising",
-                "sympathy",
-                "cooperative",
-                "trusting",
-            ],
-            data: [77, 35, 84, 18, 87, 95],
-            color: "#597E52",
-        },
-        {
-            y: 32,
-            name: "neuroticism",
-            category: [
-                "fiery",
-                "prone_to_worry",
-                "immoderation",
-                "melancholy",
-                "self_conscious",
-                "orderliness",
-                "stress_prone",
-            ],
-            data: [31, 82, 13, 31, 30, 78, 89],
-            color: "#FF8F8F",
-        },
-    ];
+    // let Data = [
+    //     {
+    //         y: 11,
+    //         name: "openness",
+    //         category: [
+    //             "adventurous",
+    //             "artistic",
+    //             "emotionally_aware",
+    //             "imaginative",
+    //             "intellectual",
+    //             "authority_challenging",
+    //         ],
+    //         data: [1, 76, 73, 79, 82, 89],
+    //         color: "#FF9843",
+    //     },
+    //     {
+    //         y: 32,
+    //         name: "conscientiousness",
+    //         category: [
+    //             "achievement_striving",
+    //             "cautious",
+    //             "dutiful",
+    //             "disciplined",
+    //             "self_efficacy",
+    //         ],
+    //         data: [80, 100, 85, 87, 89],
+    //         color: "#D24545",
+    //     },
+    //     {
+    //         y: 7,
+    //         name: "extraversion",
+    //         category: [
+    //             "active",
+    //             "assertive",
+    //             "cheerful",
+    //             "excitement_seeking",
+    //             "outgoing",
+    //             "gregariousness",
+    //         ],
+    //         data: [89, 81, 24, 0, 74, 75],
+    //         color: "#86A7FC",
+    //     },
+    //     {
+    //         y: 18,
+    //         name: "agreeableness",
+    //         category: [
+    //             "altruism",
+    //             "modesty",
+    //             "uncompromising",
+    //             "sympathy",
+    //             "cooperative",
+    //             "trusting",
+    //         ],
+    //         data: [77, 35, 84, 18, 87, 95],
+    //         color: "#597E52",
+    //     },
+    //     {
+    //         y: 32,
+    //         name: "neuroticism",
+    //         category: [
+    //             "fiery",
+    //             "prone_to_worry",
+    //             "immoderation",
+    //             "melancholy",
+    //             "self_conscious",
+    //             "orderliness",
+    //             "stress_prone",
+    //         ],
+    //         data: [31, 82, 13, 31, 30, 78, 89],
+    //         color: "#FF8F8F",
+    //     },
+    // ];
 
-    const colors = Highcharts.getOptions().colors;
+    const colors = ["#252D52", "#005CE2", "#00E5C2", "#5474B5", "#f1f1f1"];
 
     const categories = [
         "Openness",
@@ -137,7 +137,7 @@ const Newgraph = (props) => {
         browserData.push({
             name: categories[i],
             y: data[i].y,
-            color: data[i].color,
+            // color: data[i].color,
         });
         // add version data
         drillDataLen = data[i].drilldown.data.length;
@@ -146,7 +146,7 @@ const Newgraph = (props) => {
             versionsData.push({
                 name: data[i].drilldown.categories[j],
                 y: data[i].drilldown.data[j],
-                color: data[i].color,
+                // color: data[i].color,
             });
         }
     }
@@ -171,6 +171,7 @@ const Newgraph = (props) => {
                 center: ["50%", "50%"],
                 cursor: "pointer",
                 allowPointSelect: true,
+                colors: colors,
                 // size:'100%',
                 // height:'100%'
             },
@@ -196,15 +197,14 @@ const Newgraph = (props) => {
                 data: browserData,
                 size: "100%",
                 innerSize: "0%",
-                // dataLabels: {
-                //     format: '<b>{point.name}:</b> <span style="opacity: 0.5">{y}%</span>',
-                //     filter: {
-                //         property: "y",
-                //         operator: ">",
-                //         value: 1,
-                //     },
-
-                // },
+                dataLabels: {
+                    format: '<b>{point.name}:</b> <span style="opacity: 0.5">{y}%</span>',
+                    filter: {
+                        property: "y",
+                        operator: ">",
+                        value: 1,
+                    },
+                },
             },
             // {
             //     name: "subcateory %",
