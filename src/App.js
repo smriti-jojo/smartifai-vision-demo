@@ -11,29 +11,15 @@ import NewVisualization from './pages/NewVisualization';
 function App() {
   return (
     <div className="App">
-    {/* <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<Visualization/>}/>
-      <Route path='/newgraph' element={<Newgraph/>}/>
-      <Route path='/latest' element={<PieChart/>}/>
-      <Route path='/barChart' element={<StackedBarChart/>}/>
-      
-      
-       {/* <Route path='/graph1' element={<Graph1/>}/> */}
-    {/* </Routes> */}
-    {/* </BrowserRouter>  */}
-    {/* <StackedBarChart /> */}
       <div className='legendArea'></div>
     
      <BrowserRouter>
     <Routes>
       {/* <Route path='/' element={<Visualization/>}/> */}
       
-      <Route path='/' element={<SocialVisualization/>}/>
-      <Route path='/visualize' element={<NewVisualization/>}/>
-      {/* <Route path='/example' element={<Example/>}/> */}
-      
-     {/* <Route path='/graph1' element={<Graph1/>}/> */}
+      {/* <Route path='/' element={<SocialVisualization/>}/> */}
+      <Route path='/' element={<NewVisualization/>}/>
+    
     </Routes> 
      </BrowserRouter>  
      </div>

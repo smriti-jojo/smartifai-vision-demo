@@ -10,10 +10,7 @@ import Loader from "../component/Loader/Loader";
 import Newgraph from "../component/Newgraph";
 import linkedinInstance from "../linkedinInstance";
 import Swal from "sweetalert2";
-import DoughnutChart from "../component/visualGraph";
-import Newgraph1 from "../component/newVisual";
-import NewGraph2 from "../component/practiceChart";
-import NewGraph3 from "../component/newPractice";
+
 const SocialVisualization = () => {
     const [url, seturl] = useState("");
     const [twitterUserName, settwitterUserName] = useState("");
@@ -786,7 +783,7 @@ const SocialVisualization = () => {
                     {/* <DoughnutChart/> */}
                     {/* <Newgraph1/> */}
                     {/* <NewGraph2/> */}
-                    <NewGraph3 />
+                    {/* <NewGraph3 /> */}
                 </div>
             </div>
         </>
