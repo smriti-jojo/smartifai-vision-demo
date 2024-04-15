@@ -170,9 +170,14 @@ const handleData=async()=>{
             text: "Sufficient Data Not Available!"
           
           });
-          setdatasets([]);
+          // setdatasets([]);
           setButtonOpen(false);
           setopen(false);
+          // setopen(false);
+   setlinkedinClick(false);
+   setanalyseButton(false);
+   profileurls.pop();
+   
         }
         else{
           divideInputs(openness1, conscientiousness1, extraversion1, agreeableness,neuroticism);
@@ -204,6 +209,10 @@ const handleData=async()=>{
         profileurls.pop();
           setButtonOpen(false);
           setopen(false);
+   setlinkedinClick(false);
+   
+   setanalyseButton(false);
+   
           // if(twitterData.length>0 && linkData.length>0){
           //   settwitterData([]);
           //   setlinkData([]);
@@ -408,25 +417,7 @@ const handleData=async()=>{
   console.log("Linkeddata-----",res.data.data);
   let Data=res.data.data;
   let postData=[];
-  if(Data.length !==0){
-    // Swal.fire({
-    //      icon: "error",
-    //   title: "Oops...",
-    //   text: "Sufficient data not available!",
-    //   });
-    Data.map((item)=>{
-      postData.push(item.text);
-    })
-    setlinkData(postData);
-    setTimeout(()=>{
-      console.log("setPostData---------------",postData);
-    
-        GraphData(postData);
-      
-      // GraphData(postData);
-  },1000);
-  }
-  else{
+  if(!Data || Data.length ===0){
   
     Swal.fire({
       icon: "error",
@@ -442,6 +433,22 @@ const handleData=async()=>{
   //   setdatasets([]);
   //  }
   }
+
+  else{
+   
+    Data.map((item)=>{
+      postData.push(item.text);
+    })
+    setlinkData(postData);
+    setTimeout(()=>{
+      console.log("setPostData---------------",postData);
+    
+        GraphData(postData);
+      
+      // GraphData(postData);
+  },1000);
+  }
+
 
    }
 
