@@ -452,12 +452,10 @@ const handleData=async()=>{
     // setopen(true);
     console.log("twitterdata",twitterdata);
     console.log("linkData",linkData);
-    const consolidateData=[];
-    consolidateData.push(twitterdata);
-    consolidateData.push(linkData);
+    const consolidateData=twitterData+linkData;
    
     console.log("consolidateData----------",consolidateData);
-    console.log("consolidateDatatype----------",typeof(consolidateData));
+    // console.log("consolidateDatatype----------",typeof(consolidateData));
     if(twitterdata.length===0 || linkData.length===0){
       Swal.fire({
         icon: "error",
@@ -571,9 +569,9 @@ const handleData=async()=>{
                           
            </div>
                         </div>
-                        <div className='absolute top-[4rem] left-[4rem]'>
-                           <img src={logo} className='w-[60%]'/>
-                        </div>
+                        {/* <div className='absolute top-[4rem] left-[4rem]'> */}
+                           <img src={logo} className='w-[15%] absolute top-[2rem] left-[1.5rem]'/>
+                        {/* </div> */}
 
                         {/* <div className="">
                         {open ? (
@@ -629,13 +627,13 @@ const handleData=async()=>{
 {open?<div className='w-full'><Loader/></div>: 
 <div className='w-full'>{datasets.length===0?<div className=''></div>:<div className='flex gap-[2%]  mt-[6%] max-w-full max-h-full '>
                     
-                    <div className='p-[4%] w-[25rem] h-[25rem] rounded-lg bg-[#E0F4FF] flex justify-center ml-[4rem] relative'>
-                       <div className='flex-col'>
+                    <div className='p-[1%] w-[20rem] h-[25rem] rounded-lg bg-[#E0F4FF] flex justify-center ml-[3rem] '>
+                       <div className='flex-col min-w-full'>
                         <div className='flex justify-center'><AccountCircleIcon sx={{fontSize:'100px'}}/></div>
                         {/* <div><h1 className='font-bold'>Mahima Chaudhary</h1></div> */}
                         {/* <div className='text-sm'>Building Smartifai | APM</div> */}
                         
-                        <div className='h-[55%] max-w-full overflow-auto'>{profileurls.map((item,index)=>{
+                        <div className='h-[60%] max-w-full overflow-auto'>{profileurls.map((item,index)=>{
                        
                         if(index===profileurls.length-1){
                             return <div className='pt-4 w-[50%]'>
@@ -647,7 +645,7 @@ const handleData=async()=>{
                             return <div key={index} className='font-bold py-1 text-[#00008B]'>{item}</div>
                         }
                         })}</div>
-                        <div className='absolute bottom-5 left-20'>
+                        <div className='mt-[2%] ml-[2%]'>
                         <Button variant="contained"  sx={ { borderRadius: 28} } onClick={ConsolidateData} className={`${consolidate?'!bg-[#00008B]':twitterdata.length !==0 && linkData.length !==0?' !cursor-pointer':'!bg-slate-600 !cursor-default'} h-[2.5rem] w-[15rem]`} disabled={twitterdata.length ===0 || linkData.length===0?true:false}>{consolidate && twitterdata.length !==0 && linkData.length !==0?"Analyzing...":"Consolidate Profiles"}</Button>
                      </div>
                         </div>

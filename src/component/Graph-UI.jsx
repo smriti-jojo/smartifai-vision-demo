@@ -151,8 +151,8 @@ const DoughnutChart= (props) => {
 
     return (
         <>
-        <div style={{ display: "flex",gap:'20%' }}>
-            <div style={{ flex: 1,marginRight: "-15%" }}>
+        <div style={{ display: "flex",gap:'5%' }}>
+            <div>
             <HighchartsReact
                 highcharts={Highcharts}
                 options={options}
@@ -162,7 +162,7 @@ const DoughnutChart= (props) => {
             {subCategory ? (
                 <div
                     style={{
-                        width: "600px",
+                        width: 600,
 
                     }}
                     className="subcategory"
@@ -189,7 +189,7 @@ function SubCategory({ name = "", data = [], isSelected = {} }) {
           chart: {
             type: "bar",
             backgroundColor:'#E0F4FF',
-            width:400,
+            width:450,
             height:400,
             borderRadius:'10px'
           },
@@ -197,7 +197,12 @@ function SubCategory({ name = "", data = [], isSelected = {} }) {
             text:  capitalizeFirstLetter(name)
           },
           xAxis: {
-            categories: data.map(e => capitalizeFirstLetter(e.name.replace("_", " ")))
+            categories: data.map(e => capitalizeFirstLetter(e.name.replace("_", " "))),
+            
+              // style: {
+              //   fontSize: '10px', 
+              // },
+          
           },
           yAxis: {
             title: {
@@ -205,7 +210,8 @@ function SubCategory({ name = "", data = [], isSelected = {} }) {
             },
             labels: {
               format: "{value}%"
-            }
+            },
+            visible: false,
           },
           plotOptions: {
             series: {
