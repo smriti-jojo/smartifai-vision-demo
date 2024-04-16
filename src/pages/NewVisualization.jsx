@@ -9,7 +9,7 @@ import profileinstance from '../profileInstance';
 import Swal from 'sweetalert2';
 import linkedinInstance from '../linkedinInstance';
 import Loader from '../component/Loader/Loader';
-
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 
 
@@ -19,7 +19,7 @@ const NewVisualization = () => {
     const[textFieldError,settextFieldError]=useState(false);
     const[profileurls,setProfileUrls]=useState([]);
     const[analyseButton, setanalyseButton]=useState(false);
-    const[twitterUrl,settwitterUrl]=useState("");
+    // const[twitterUrl,settwitterUrl]=useState("");
     const [twitterUserName,settwitterUserName]=useState("");
     const[twitterdata,settwitterData]=useState([]);
     const [datasets,setdatasets]=useState([]);
@@ -41,8 +41,9 @@ const NewVisualization = () => {
   const[twittererror,settwitterError]=useState(false);
   const[linkedinerror,setlinkedinError]=useState(false);
   const[linkUsername,setlinkUsername]=useState("");
-  
-  const urlSet=[...profileurls];
+  const[linkedinUrl,setlinkedinUrl]=useState("");
+  const[twitterUrl,settwitterUrl]=useState("");
+ 
   // const[linkedinButton,setlinkedinButton]=useState(false);
 
 //     useEffect(()=>{
@@ -91,12 +92,12 @@ const handleUrl=(url)=>{
     if(url.length===0){
         settextFieldError(false);
     }
-    console.log("----profileurl",urlSet);
+    // console.log("----profileurl",urlSet);
 
-    const urlArray = urlSet.filter((item, index) => {
-        return urlSet.indexOf(item) === index;
-    });
-    setProfileUrls(urlArray);
+    // const urlArray = urlSet.filter((item, index) => {
+    //     return urlSet.indexOf(item) === index;
+    // });
+    // setProfileUrls(urlArray);
 }
 
 const handleData=async()=>{
@@ -107,15 +108,26 @@ const handleData=async()=>{
     if(profiletype==="linkedin"){
        await LinkedinData2();
     //    seturl(urlSet);
+    const urlSet=[...profileurls,linkedinUrl];
+    const urlArray = urlSet.filter((item, index) => {
+        return urlSet.indexOf(item) === index;
+    });
+    setProfileUrls(urlArray);
+
     }else{
       await twitterData();
+      const urlSet=[...profileurls,twitterUrl];
+      const urlArray = urlSet.filter((item, index) => {
+          return urlSet.indexOf(item) === index;
+      });
+      setProfileUrls(urlArray);
     //   seturl(urlSet);
     }
     
 }
     const handleInput=(value)=>{
       console.log("urlset------",profileurls);
-    urlSet.push(value);
+    // urlSet.push(value);
         console.log("--url----",value);
         console.log("--urlsplittwitter----",value.split('/')[3]);
         const twitterRegex=/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/;
@@ -125,7 +137,22 @@ const handleData=async()=>{
    
         else{
           settwitterError(false);
-          settwitterUrl(value);
+          
+            
+          
+          if(twitterUrl.length<1){
+            settwitterUrl(value);
+          }
+          else{
+            Swal.fire({
+              icon: "error",
+              title: "Twitter Profile is Already Present",
+              text: "Please Enter Linkedin profile or Reset Data to Continue!"
+            
+            });
+          }
+          // settwitterUrl(value);
+          // settwitterUrl(value);
         let twitterName=value.split('/')[3];
         console.log("twitterName",twitterName);
         settwitterUserName(twitterName);
@@ -163,7 +190,7 @@ const handleData=async()=>{
         tweetdata.push(item.text);
         })
         console.log("tweetdata------",tweetdata);
-        if(tweetdata.length===0){
+        if(!tweetdata || tweetdata.length===0){
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -198,15 +225,30 @@ const handleData=async()=>{
           //   settwitterData([]);
           //   setlinkData([]);
           // }
+        //   console.log("urlset---twiotter",profileurls)
+        //   const arraySet=profileurls.filter((item)=>item !==twitterUrl);
+        //  setProfileUrls(arraySet);
+        //  console.log("urlset---twiotter--after",profileurls)
+        // profileurls.pop();
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "User Not Available!"
           
+          }).then((result)=>{
+            if (result.isConfirmed) {
+              // Perform the pop() operation
+              console.log("popping value is accessible",profileurls);
+              profileurls.pop();
+              setProfileUrls(...profileurls);
+            }
           });
         
         //   setdatasets([]);
-        profileurls.pop();
+      //   console.log("urlset---twiotter",profileurls)
+      //   const arraySet=profileurls.filter((item)=>item !==twitterUrl);
+      //  setProfileUrls(arraySet);
+      //  console.log("urlset---twiotter--after",profileurls)
           setButtonOpen(false);
           setopen(false);
    setlinkedinClick(false);
@@ -226,7 +268,7 @@ const handleData=async()=>{
         // setopen(true);
     //   const text=twitterData.toString();
     // setGraphReady(true);
-    seturl(urlSet);
+    // seturl(urlSet);
     console.log("-------linkedinData-------",linkData);
       let text=postData.toString();
     
@@ -484,7 +526,7 @@ const handleData=async()=>{
    
    const handleUrlInput=(value)=>{
       console.log("value",value);
-      urlSet.push(value);
+      // urlSet.push(value);
       console.log("--urlsplitLinkedin----",value.split('/')[4]);
       // const linkedinRegex=/^https:\/\/[a-z]{2,3}\.linkedin\.com\/.*$/
       // const linkedinRegex=/^http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/? /
@@ -496,6 +538,18 @@ const handleData=async()=>{
       }
     
       else{
+        if(linkedinUrl.length<1){
+          setlinkedinUrl(value);
+        }
+        else{
+          Swal.fire({
+            icon: "error",
+            title: "Linkedin Profile Url is Already Present",
+            text: "Please Enter Twitter profile or Reset Data to Continue!"
+          
+          });
+        }
+        // setlinkedinUrl(value);
         let linkName=value.split('/')[4];
         setlinkedinError(false);
         setlinkUsername(linkName);
@@ -539,7 +593,14 @@ const handleData=async()=>{
     window.location.reload();
    }
 
-
+const handleMoreThanTwoProfile=()=>{
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "Consolidata Profiles/ Reset Data To Continue"
+  
+  });
+}
 
   return (
     <div className='relative '>
@@ -572,12 +633,12 @@ const handleData=async()=>{
                                     }
                                   }}
                             />
-                            <div className='ml-[1%]'>  <Button variant="contained" sx={ { borderRadius: 28 ,width:'120px'} } onClick={handleData} className={`${linkedinClick?'!bg-[#00008B]':' !bg-blue-600'} h-[2.5rem] w-[10rem]`}>{linkedinClick?"Analyzing...":"Analyse"}</Button></div>
-                          
+                            <div className='ml-[1%]'>  <Button variant="contained" sx={ { borderRadius: 28 ,width:'120px'} } onClick={profileurls.length===2?handleMoreThanTwoProfile:handleData} className={`${linkedinClick?'!bg-[#00008B]':profileurls.length===2?"!bg-slate-600 !cursor-default":' !bg-blue-600 !cursor-pointer'} }h-[2.5rem] w-[10rem]`}>{linkedinClick?"Analyzing...":"Analyse"}</Button></div>
+                           <div className='ml-[1%]' onClick={resetButton}><Button variant='contained' size="small" className='!rounded-2xl !bg-blue-600'>Reset <RestartAltIcon /></Button> </div>  
            </div>
                         </div>
                         {/* <div className='absolute top-[4rem] left-[4rem]'> */}
-                           <img src={logo} className='w-[15%] absolute top-[2rem] left-[1.5rem]'/>
+                           <img src={logo} className='w-[12rem] absolute top-[2.5rem] left-[1.5rem]'/>
                         {/* </div> */}
 
                         {/* <div className="">
@@ -632,9 +693,10 @@ const handleData=async()=>{
                         <div className=''>
 
 {open?<div className='w-full'><Loader/></div>: 
-<div className='w-full'>{datasets.length===0?<div className=''></div>:<div className='flex gap-[2%]  mt-[6%] max-w-full max-h-full '>
+<div className='w-full'>{datasets.length===0?<div className=''></div>:
+            <div className='flex gap-[35px]  mt-[6%] max-w-full max-h-full '>
                     
-                    <div className='p-[1%] w-[20rem] h-[25rem] rounded-lg bg-[#E0F4FF] flex justify-center ml-[3rem] '>
+                    <div className='p-[1%] w-[20rem] h-[25rem] rounded-lg bg-[#E0F4FF] flex justify-center ml-[40px] '>
                        <div className='flex-col min-w-full'>
                         <div className='flex justify-center'><AccountCircleIcon sx={{fontSize:'100px'}}/></div>
                         {/* <div><h1 className='font-bold'>Mahima Chaudhary</h1></div> */}
@@ -644,7 +706,7 @@ const handleData=async()=>{
                        
                         if(index===profileurls.length-1){
                             return <div className='pt-4 w-[50%]'>
-                                 <div className="bg-gradient-to-br from-green-400 to-blue-500 rounded-full transform  text-sm px-1 animate-bounce">{analyseButton?"Latest Analysis":"Waiting For Analysis..."}</div>
+                                 <div className="bg-gradient-to-br from-green-400 to-blue-500 rounded-full transform  text-sm px-1 animate-bounce">{"Latest Analysis"}</div>
                             <div className='font-bold text-[#0E86D4] animate-pulse '>{item}</div>
                         </div>
                         }
@@ -652,12 +714,12 @@ const handleData=async()=>{
                             return <div key={index} className='font-bold py-1 text-[#00008B]'>{item}</div>
                         }
                         })}</div>
-                        <div className='mt-[2%] ml-[2%]'>
+                        <div className='mt-[2%] ml-[3%]'>
                         <Button variant="contained"  sx={ { borderRadius: 28} } onClick={ConsolidateData} className={`${consolidate?'!bg-[#00008B]':twitterdata.length !==0 && linkData.length !==0?' !cursor-pointer':'!bg-slate-600 !cursor-default'} h-[2.5rem] w-[15rem]`} disabled={twitterdata.length ===0 || linkData.length===0?true:false}>{consolidate && twitterdata.length !==0 && linkData.length !==0?"Analyzing...":"Consolidate Profiles"}</Button>
                      </div>
                         </div>
                         </div>
-                        <div className='w-[32rem] h-[25rem] rounded-lg bg-[#E0F4FF]'>
+                        <div >
                          <DoughnutChart datasets={datasets}/>
                                     </div>
                 </div>}

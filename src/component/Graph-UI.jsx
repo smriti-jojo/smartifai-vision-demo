@@ -14,6 +14,8 @@ const DoughnutChart= (props) => {
     console.log("PROPS---DATASETS", props.datasets);
     let Data = props.datasets;
 
+
+    
     // const Data = [
     //     {    x:17,
     //         name: "openness",
@@ -92,11 +94,19 @@ const DoughnutChart= (props) => {
         chart: {
             type: "pie",
             backgroundColor: '#E0F4FF',
-            borderRadius:"10px"
+            borderRadius:"10px",
+            
+            
         },
         title: {
             text: "Top 5 Personality Traits",
         },
+        // responsive: {  
+        //   rules: [{  
+        //     condition: {  
+        //       minWidth: '30%' 
+        //     },}]}, 
+        credits: { enabled: false }, 
         plotOptions: {
             pie: {
                 shadow: false,
@@ -151,19 +161,19 @@ const DoughnutChart= (props) => {
 
     return (
         <>
-        <div style={{ display: "flex",gap:'5%' }}>
+        <div style={{ display: "flex",gap:'35px'}}>
             <div>
             <HighchartsReact
                 highcharts={Highcharts}
                 options={options}
-                containerProps={{ style: { height: "100%", width: "100%" } }}
+                containerProps={{ style: { height: "100%", width: "100%"} }}
             />
             </div>
             {subCategory ? (
                 <div
                     style={{
-                        width: 600,
-
+                        width: '100%',
+                        marginRight:'40px'
                     }}
                     className="subcategory"
                 >
@@ -191,7 +201,8 @@ function SubCategory({ name = "", data = [], isSelected = {} }) {
             backgroundColor:'#E0F4FF',
             width:450,
             height:400,
-            borderRadius:'10px'
+            borderRadius:'10px',
+            marginRight: 50,
           },
           title: {
             text:  capitalizeFirstLetter(name)
@@ -213,6 +224,12 @@ function SubCategory({ name = "", data = [], isSelected = {} }) {
             },
             visible: false,
           },
+          // responsive: {  
+          //   rules: [{  
+          //     condition: {  
+          //       maxWidth: 300  
+          //     },}]},  
+          credits: { enabled: false },
           plotOptions: {
             series: {
               dataLabels: {
