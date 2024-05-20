@@ -78,7 +78,7 @@ const SocialVisualization = () => {
         console.log("--url----", value);
         console.log("--urlsplit----", value.split("/")[3]);
         const twitterRegex =
-            /http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/;
+            /http(?:s)?:\/\/(?:www\.)?x\.com\/([a-zA-Z0-9_]+)/;
         if (!twitterRegex.test(value)) {
             settwitterError(true);
         } else {

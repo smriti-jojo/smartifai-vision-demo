@@ -81,7 +81,7 @@ const handleUrl=(url)=>{
         handleUrlInput(url);
        
         
-    } else if (url.includes('https://twitter.com/')) {
+    } else if (url.includes('https://x.com/')) {
         setProfile("twitter");
         settextFieldError(false);
         handleInput(url);
@@ -130,7 +130,7 @@ const handleData=async()=>{
     // urlSet.push(value);
         console.log("--url----",value);
         console.log("--urlsplittwitter----",value.split('/')[3]);
-        const twitterRegex=/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/;
+        const twitterRegex=/http(?:s)?:\/\/(?:www\.)?x\.com\/([a-zA-Z0-9_]+)/;
         if(!twitterRegex.test(value)){
           settwitterError(true);
         }

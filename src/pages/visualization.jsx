@@ -179,7 +179,7 @@ const handleInput=()=>{
   console.log("--urlsplit----",url.split('/')[3]);
   let twitterName=url.split('/')[3];
   setuserName(twitterName);
-const twitterRegex=/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/;
+const twitterRegex=/http(?:s)?:\/\/(?:www\.)?x\.com\/([a-zA-Z0-9_]+)/;
 console.log("twitterRegex",twitterRegex.test(url));
 {twitterRegex.test(url)?console.log("Hii"):GraphData()}
 }
